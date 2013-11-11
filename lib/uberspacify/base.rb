@@ -14,7 +14,7 @@ Capistrano::Configuration.instance.load do
 
   # optional variables
   _cset(:domain)                { nil }
-  _cset(:passenger_port)        { rand(61000-32768+1)+32768 } # random ephemeral port
+  _cset(:passenger_port)        { 3000 } # random ephemeral port
 
   _cset(:deploy_via)            { :remote_cache }
   _cset(:git_enable_submodules) { 1 }
@@ -35,7 +35,7 @@ Capistrano::Configuration.instance.load do
 
   # callbacks
   #before  'deploy:setup',           'rvm:install_rvm'
-  #before  'deploy:setup',           'rvm:install_ruby'
+  before  'deploy:setup',           'rvm:install_ruby'
   after   'deploy:setup',           'uberspace:setup_svscan'
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
