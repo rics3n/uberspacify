@@ -93,7 +93,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
 
   namespace :bower do
     task :install do
-      run   "cd #{release_path} && bower install --quiet"
+      run   "cd #{release_path} && rake bower:install"
     end
   end
 
