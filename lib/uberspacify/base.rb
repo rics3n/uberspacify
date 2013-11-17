@@ -36,9 +36,11 @@ Capistrano::Configuration.instance.load do
   # callbacks
   #before  'deploy:setup',           'rvm:install_rvm'
   before  'deploy:setup',           'rvm:install_ruby'
+  before 'deploy:setup',           'bower:install'
   after   'deploy:setup',           'uberspace:setup_svscan'
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
+  before 'deploy:updated', 'bower:install'
   before  'deploy:finalize_update', 'deploy:symlink_shared'
   after   'deploy',                 'deploy:cleanup'
 
@@ -89,6 +91,33 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
       run                 "uberspace-add-domain -qwd #{fetch :domain} ; true" if fetch(:domain)
     end
   end
+
+  namespace :bower do
+  desc <<-DESC
+        Install the current Bower environment. The install command is executed \
+        with the --quiet flag.
+
+        You can override any of these defaults by setting the variables shown below.
+
+          set :bower_flags, '--quiet'
+          set :bower_roles, :all
+    DESC
+  task :install do
+    on roles fetch(:bower_roles) do
+      within release_path do
+        execute :bower, "install",
+          fetch(:bower_flags)
+      end
+    end
+  end
+end
+
+namespace :load do
+  task :defaults do
+    set :bower_flags, '--quiet'
+    set :bower_roles, :all
+  end
+end
 
   namespace :deploy do
     task :start do
