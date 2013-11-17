@@ -103,21 +103,15 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
           set :bower_roles, :all
     DESC
   task :install do
-    on roles fetch(:bower_roles) do
+    on roles fetch(:all) do
       within release_path do
         execute :bower, "install",
-          fetch(:bower_flags)
+          fetch('--quiet')
       end
     end
   end
 end
 
-namespace :load do
-  task :defaults do
-    set :bower_flags, '--quiet'
-    set :bower_roles, :all
-  end
-end
 
   namespace :deploy do
     task :start do
