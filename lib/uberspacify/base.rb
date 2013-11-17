@@ -41,7 +41,7 @@ Capistrano::Configuration.instance.load do
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
   before 'deploy:updated', 'bower:install'
-  before  'deploy:finalize_update', 'deploy:symlink_shared'
+  before  'deploy:assets:precompile', 'deploy:symlink_shared'
   after   'deploy',                 'deploy:cleanup'
 
   # custom recipes
