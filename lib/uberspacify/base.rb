@@ -93,8 +93,7 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
 
   namespace :bower do
     task :install do
-      path = "#{release_path}"
-      run   "bower install --quiet"
+      run   "cd #{release_path} && bower install --quiet"
     end
   end
 
