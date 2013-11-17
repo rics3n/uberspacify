@@ -92,23 +92,22 @@ RewriteRule ^(.*)$ http://localhost:#{fetch :passenger_port}/$1 [P]
   end
 
   namespace :bower do
-  desc <<-DESC
-        Install the current Bower environment. The install command is executed \
-        with the --quiet flag.
+    desc <<-DESC
+          Install the current Bower environment. The install command is executed \
+          with the --quiet flag.
 
-        You can override any of these defaults by setting the variables shown below.
+          You can override any of these defaults by setting the variables shown below.
 
-          set :bower_flags, '--quiet'
-          set :bower_roles, :all
-    DESC
-  task :install do
+            set :bower_flags, '--quiet'
+            set :bower_roles, :all
+      DESC
+    task :install do
       within release_path do
-        execute :bower, "install",
-          fetch('--quiet')
+          execute :bower, "install",
+            fetch('--quiet')
       end
     end
   end
-end
 
 
   namespace :deploy do
