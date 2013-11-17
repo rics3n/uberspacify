@@ -36,12 +36,11 @@ Capistrano::Configuration.instance.load do
   # callbacks
   #before  'deploy:setup',           'rvm:install_rvm'
   before  'deploy:setup',           'rvm:install_ruby'
-  before 'deploy:setup',           'bower:install'
   after   'deploy:setup',           'uberspace:setup_svscan'
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
-  before 'deploy:updated', 'bower:install'
-  before  'deploy:assets:precompile', 'deploy:symlink_shared'
+  before 'deploy:assets:precompile', 'bower:install'
+  before  'deploy:finalize_update', 'deploy:symlink_shared'
   after   'deploy',                 'deploy:cleanup'
 
   # custom recipes
