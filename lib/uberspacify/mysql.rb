@@ -1,18 +1,18 @@
 Capistrano::Configuration.instance.load do
 
   # callbacks
-  after   'deploy:setup',       'mysql:setup_database_and_config'
+  after   'deploy:setup',       'postgres:setup_database_and_config'
 
   # custom recipes
-  namespace :mysql do
+  namespace :postgres do
     task :setup_database_and_config do
       my_cnf = capture('cat ~/.my.cnf')
       config = {}
       %w(development production test).each do |env|
 
         config[env] = {
-          'adapter' => 'mysql2',
-          'encoding' => 'utf8',
+          'adapter' => 'postgresql',
+          'encoding' => 'unicode',
           'database' => "#{fetch :user}_rails_#{fetch :application}_#{env}",
           'host' => 'localhost'
         }
