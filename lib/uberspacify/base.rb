@@ -18,7 +18,7 @@ Capistrano::Configuration.instance.load do
 
   _cset(:deploy_via)            { :remote_cache }
   _cset(:git_enable_submodules) { 1 }
-  _cset(:branch)                { 'production' }
+  #_cset(:branch)                { 'production' }
 
   _cset(:keep_releases)         { 3 }
 
@@ -35,11 +35,11 @@ Capistrano::Configuration.instance.load do
 
   # callbacks
   #before  'deploy:setup',           'rvm:install_rvm'
-  before  'deploy:setup',           'rvm:install_ruby'
+  #before  'deploy:setup',           'rvm:install_ruby'
   after   'deploy:setup',           'uberspace:setup_svscan'
   after   'deploy:setup',           'daemontools:setup_daemon'
   after   'deploy:setup',           'apache:setup_reverse_proxy'
-  before 'deploy:assets:precompile', 'bower:install'
+  before  'deploy:assets:precompile', 'bower:install'
   before  'deploy:finalize_update', 'deploy:symlink_shared'
   after   'deploy',                 'deploy:cleanup'
 
