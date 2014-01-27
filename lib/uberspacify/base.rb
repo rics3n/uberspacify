@@ -11,6 +11,7 @@ Capistrano::Configuration.instance.load do
   # required variables
   _cset(:user)                  { abort_red "Please configure your Uberspace user in config/deploy.rb using 'set :user, <username>'" }
   _cset(:repository)            { abort_red "Please configure your code repository config/deploy.rb using 'set :repository, <repo uri>'" }
+  _cset(:branch)                { abort_red "Please configure your code branch 'set :branch, <branch>'"}
 
   # optional variables
   _cset(:domain)                { nil }
@@ -18,7 +19,6 @@ Capistrano::Configuration.instance.load do
 
   _cset(:deploy_via)            { :remote_cache }
   _cset(:git_enable_submodules) { 1 }
-  #_cset(:branch)                { 'production' }
 
   _cset(:keep_releases)         { 3 }
 
