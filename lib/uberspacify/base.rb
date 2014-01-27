@@ -1,6 +1,7 @@
 require 'capistrano_colors'
-require 'rvm/capistrano'
+#require 'rvm/capistrano'
 require 'bundler/capistrano'
+require 'capistrano/ext/multistage'
 
 def abort_red(msg)
   abort "  * \e[#{1};31mERROR: #{msg}\e[0m"
